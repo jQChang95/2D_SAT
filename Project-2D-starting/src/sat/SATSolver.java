@@ -2,6 +2,7 @@ package sat;
 
 import immutable.ImList;
 import sat.env.Environment;
+import sat.env.Variable;
 import sat.formula.Clause;
 import sat.formula.Formula;
 import sat.formula.Literal;
@@ -20,8 +21,10 @@ public class SATSolver {
      *         null if no such environment exists.
      */
     public static Environment solve(Formula formula) {
-        // TODO: implement this.
-        throw new RuntimeException("not yet implemented.");
+        // this calls the next function
+    	ImList<Clause> clauses = formula.getClauses();
+    	Environment env = new Environment();
+    	return solve(clauses, env);
     }
 
     /**
@@ -37,7 +40,33 @@ public class SATSolver {
      *         or null if no such environment exists.
      */
     private static Environment solve(ImList<Clause> clauses, Environment env) {
-        // TODO: implement this.
+        // empty clause list
+    	if (clauses.isEmpty()){
+    		return env;
+    	}
+    	//empty clause
+    	for (Clause clause : clauses){
+    		if (clause.isEmpty()){
+    			return null;
+    		}
+    	}
+    	//find smallest clause
+    	Clause smallestClause = new Clause();
+    	int smallestSize = 99999999;
+    	for (Clause clause: clauses){
+    		if (clause.size()<smallestSize){
+    			smallestSize = clause.size();
+    			smallestClause = clause;
+    		}
+    	}
+    	if (smallestClause.isUnit()){
+    		Environment newEnv = new Environment();
+    		Literal literal = smallestClause.chooseLiteral();
+    		Variable var = literal.getVariable();
+    		newEnv.putTrue(var);
+    		
+    	}
+    	
         throw new RuntimeException("not yet implemented.");
     }
 
