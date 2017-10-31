@@ -76,20 +76,22 @@ public class SATSolver {
 
     	Environment newEnv = new Environment(); //env to put the var as true
     	Literal literal = smallestClause.chooseLiteral();
+    	Literal nLiteral = literal.getNegation();
     	Variable var = literal.getVariable();
+    	Variable nVar = nLiteral.getVariable();
     	Environment output = new Environment(); //output
     	ImList<Clause> newClauses = new EmptyImList<Clause>(); //Substituted list
+    	newEnv = env.putTrue(var);
+		newEnv = env.putFalse(nVar);
+		newClauses = substitute(clauses, literal);
     	if (smallestClause.isUnit()){
-    		newEnv = env.putTrue(var);
-    		newClauses = substitute(clauses, literal);
     		output = solve(newClauses, newEnv);
     	}else{
-    		newEnv = env.putTrue(var);
-    		newClauses = substitute(clauses, literal);
     		output = solve(newClauses, newEnv);
     		if (output == null){
     			newEnv = env.putFalse(var);
-    			newClauses = substitute(clauses, literal);
+    			newEnv = env.putTrue(nVar);
+    			newClauses = substitute(clauses, nLiteral);
     			output = solve(newClauses, newEnv);
     		}
     	}
