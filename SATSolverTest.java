@@ -8,12 +8,14 @@ import org.junit.Test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Scanner;
 import sat.env.*;
 import sat.formula.*;
 
@@ -31,20 +33,20 @@ public class SATSolverTest {
     
     // TODO: add the main method that reads the .cnf file and calls SATSolver.solve to determine the satisfiability
     public static void main(String args[]) throws IOException {
-        FileReader fin = null;
-        BufferedReader bin = null;
+        File fin = null;
+        Scanner bin = null;
         
         try {
-            fin=new FileReader("s8Sat.cnf"); //import file
-            bin=new BufferedReader(fin);
+            fin=new File("largeUnsat.cnf"); //import file
+            bin=new Scanner(fin);
             
             String line;
-            bin.readLine();//remove the commented part
-            String[] format=bin.readLine().split(" ");
+            bin.nextLine();//remove the commented part
+            String[] format=bin.nextLine().split(" ");
             int NumberOfClauses=Integer.parseInt(format[3]);//get the number of clauses
             Formula f = new Formula(); //create and instance of the formula
             while (f.getSize()!=NumberOfClauses) {
-                line=bin.readLine();
+                line=bin.nextLine();
                 if(line.length()>0){
                     String[] tempLine=line.split(" ");
                     Clause c = new Clause();
@@ -77,7 +79,7 @@ public class SATSolverTest {
                 System.out.println("ExpectedNumberOfClauses: "+ NumberOfClauses);
                 System.out.println("FormulaSize: "+ f.getSize());
             }
-            //System.out.println(f.toString());
+//            System.out.println(f.toString());
             //====================================================================================
             
         }finally {
