@@ -35,7 +35,7 @@ public class SATSolverTest {
         BufferedReader bin = null;
         
         try {
-            fin=new FileReader("largeSat.cnf"); //import file
+            fin=new FileReader("s8Sat.cnf"); //import file
             bin=new BufferedReader(fin);
             
             String line;
@@ -43,26 +43,30 @@ public class SATSolverTest {
             String[] format=bin.readLine().split(" ");
             int NumberOfClauses=Integer.parseInt(format[3]);//get the number of clauses
             Formula f = new Formula(); //create and instance of the formula
-            while ((line = bin.readLine()) != null) {
-                String[] tempLine=line.split(" ");
-                Clause c = new Clause();
-                for(String i:tempLine){
-                    if(Integer.parseInt(i)==0){
-                        break;
-                    }
-                    Literal literal = PosLiteral.make(Integer.toString(Math.abs(Integer.parseInt(i))));//makes literal instance
-
+            while (f.getSize()!=NumberOfClauses) {
+                line=bin.readLine();
+                if(line.length()>0){
+                    String[] tempLine=line.split(" ");
+                    Clause c = new Clause();
                     
-                    if((Integer.parseInt(i))<0){ //add the negated Integer to the clause if string is negative
-                        c=c.add(literal.getNegation());
-                    }
+                    for(String i:tempLine){
+                        if(Integer.parseInt(i)==0){
+                            break;
+                        }
+                        Literal literal = PosLiteral.make(Integer.toString(Math.abs(Integer.parseInt(i))));//makes literal instance
+                        
+                        
+                        if((Integer.parseInt(i))<0){ //add the negated Integer to the clause if string is negative
+                            c=c.add(literal.getNegation());
+                        }
                     else if ((Integer.parseInt(i))>0){ //add the postitive Integer to the clause if string is positive
-                        c=c.add(literal);
+                            c=c.add(literal);
+                        }
                     }
+                    f=f.addClause(c); //add the clauses to the formula
+                    
+                    
                 }
-                f=f.addClause(c); //add the clauses to the formula
-                
-                
             }
             
             //TO BE REMOVED!!!!! WILL SLOW DOWN THE CODE===========================================
@@ -73,7 +77,7 @@ public class SATSolverTest {
                 System.out.println("ExpectedNumberOfClauses: "+ NumberOfClauses);
                 System.out.println("FormulaSize: "+ f.getSize());
             }
-            System.out.println(f.toString());
+            //System.out.println(f.toString());
             //====================================================================================
             
         }finally {
