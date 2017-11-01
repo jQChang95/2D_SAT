@@ -63,6 +63,9 @@ public class SATSolver {
     			smallestSize = clause.size();
     			smallestClause = clause;
     		}
+    		if (smallestSize == 1){
+    			break;	
+    		}
     	}
     	
     	//	o If the clause has only one literal, bind its variable in the environment so that the
@@ -76,21 +79,27 @@ public class SATSolver {
 
     	Environment newEnv = new Environment(); //env to put the var as true
     	Literal literal = smallestClause.chooseLiteral();
-    	Literal nLiteral = literal.getNegation();
-    	Variable var = literal.getVariable();
-    	Variable nVar = nLiteral.getVariable();
+    	String checker = literal.toString();
+    	Variable var = literal.getVariable();	
     	Environment output = new Environment(); //output
     	ImList<Clause> newClauses = new EmptyImList<Clause>(); //Substituted list
-    	newEnv = env.putTrue(var);
-    	newEnv = env.putFalse(nVar);
+    	if (checker.startsWith("~")){
+    		newEnv = env.putFalse(var);
+    	}else{
+    		newEnv = env.putTrue(var);
+    	}
     	newClauses = substitute(clauses, literal);
     	if (smallestClause.isUnit()){
     		output = solve(newClauses, newEnv);
     	}else{
     		output = solve(newClauses, newEnv);
     		if (output == null){
-    			newEnv = env.putFalse(var);
-    			newEnv = env.putTrue(nVar);
+    	    	if (checker.startsWith("~")){
+    	    		newEnv = env.putTrue(var);
+    	    	}else{
+    	    		newEnv = env.putFalse(var);
+    	    	}
+    			Literal nLiteral = literal.getNegation();
     			newClauses = substitute(clauses, nLiteral);
     			output = solve(newClauses, newEnv);
     		}
@@ -115,10 +124,15 @@ public class SATSolver {
     	// If newClause comes out as not null (means still not true, because if true we can ignore) then add it to the new ImList
     	Clause newClause = new Clause();
     	ImList<Clause> outClauses = new EmptyImList<Clause>();
+    	if (clauses.isEmpty()){
+    		return outClauses;
+    	}
     	for (Clause clause : clauses){
-    		newClause = clause.reduce(l);
+    		if (!clause.isEmpty() && clause != null){
+    			newClause = clause.reduce(l);
+    		}
     		if (newClause != null){
-    			outClauses.add(newClause);
+    			outClauses = outClauses.add(newClause);
     		}
     	}
     	return outClauses;
