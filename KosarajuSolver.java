@@ -49,6 +49,29 @@ public class KosarajuSolver {
                 links.add(component);
             }
         }
+        int refactor = (n-1)/2;
+        Boolean Satisfiable = true;
+        for (ArrayList<Integer> scc : links){
+            for (int component : scc){
+                if (scc.contains(component+refactor)){
+                    Satisfiable = false;
+                }
+            }
+        }
+        for (int i=0;i<links.size();i++){
+            for (int j=0;j<links.get(i).size();j++){
+                if (links.get(i).get(j)>refactor){
+                    int value = -(links.get(i).get(j)-refactor);
+                    links.get(i).set(j,value);
+                }
+            }
+        }
+        if (Satisfiable == true){
+            System.out.println("Problem is satisfiable");
+        }else{
+            System.out.println("Problem is not satisfiable");
+        }
+
         return links;
     }
 
@@ -64,7 +87,7 @@ public class KosarajuSolver {
 
 
     public static void main(String[] args) throws IOException{
-        File f = new File("largeUnsat.cnf");
+        File f = new File("Test.cnf");
         BufferedReader br = new BufferedReader(new FileReader(f));
         br.readLine();
         br.readLine();
