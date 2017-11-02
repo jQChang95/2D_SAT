@@ -64,7 +64,7 @@ public class KosarajuSolver {
 
 
     public static void main(String[] args) throws IOException{
-        File f = new File("Test.cnf");
+        File f = new File("largeUnsat.cnf");
         BufferedReader br = new BufferedReader(new FileReader(f));
         br.readLine();
         br.readLine();
