@@ -102,6 +102,7 @@ public class SATSolver {
     			Literal nLiteral = literal.getNegation();
     			newClauses = substitute(clauses, nLiteral);
     			output = solve(newClauses, newEnv);
+
     		}
     	}
     	return output;

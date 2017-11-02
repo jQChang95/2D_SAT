@@ -2,7 +2,6 @@ package sat;
 
 /*
 import static org.junit.Assert.*;
-
 import org.junit.Test;
 */
 
@@ -32,7 +31,6 @@ public class SATSolverTest {
     	long readTime = System.nanoTime();
     	File fin = null;
         Scanner bin = null;
-        
         try {
             fin=new File("Test.cnf"); //import file
             bin=new Scanner(fin);
@@ -43,13 +41,15 @@ public class SATSolverTest {
                 String[] commentRemove=bin.nextLine().split(" ");
                 if(commentRemove[0]!="c"||commentRemove[0]!="C"){
                     commentCheck=false;
-                }    
-        }
+                }
+            
+            
+            }
             String[] format=bin.nextLine().split(" ");
             int NumberOfClauses=Integer.parseInt(format[3]);//get the number of clauses
             Formula f = new Formula(); //create and instance of the formula
-            
             while (f.getSize()!=NumberOfClauses) {
+
                 line=bin.nextLine();
                 if(line.length()>0){
                     String[] tempLine=line.split(" ");
@@ -74,8 +74,6 @@ public class SATSolverTest {
                         }
                     }
                     f=f.addClause(c); //add the clauses to the formula
-                    
-                    
                 }
             }
             String fileName = "D:/School/ISTD/Java/2D/BoolAssignment.txt";
