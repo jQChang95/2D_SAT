@@ -34,7 +34,7 @@ public class SATSolverTest {
         Scanner bin = null;
         
         try {
-            fin=new File("Sg.cnf"); //import file
+            fin=new File("Test.cnf"); //import file
             bin=new Scanner(fin);
             
             String line;
@@ -48,10 +48,12 @@ public class SATSolverTest {
             String[] format=bin.nextLine().split(" ");
             int NumberOfClauses=Integer.parseInt(format[3]);//get the number of clauses
             Formula f = new Formula(); //create and instance of the formula
+            
             while (f.getSize()!=NumberOfClauses) {
                 line=bin.nextLine();
                 if(line.length()>0){
                     String[] tempLine=line.split(" ");
+                    
                     Clause c = new Clause();
                     
                     for(String i:tempLine){
@@ -64,8 +66,11 @@ public class SATSolverTest {
                         if((Integer.parseInt(i))<0){ //add the negated Integer to the clause if string is negative
                             c=c.add(literal.getNegation());
                         }
-                    else if ((Integer.parseInt(i))>0){ //add the postitive Integer to the clause if string is positive
+                        else if ((Integer.parseInt(i))>0){ //add the postitive Integer to the clause if string is positive
                             c=c.add(literal);
+                        }
+                        if (c == null){
+                        	c = new Clause();
                         }
                     }
                     f=f.addClause(c); //add the clauses to the formula
