@@ -38,7 +38,13 @@ public class SATSolverTest {
             bin=new Scanner(fin);
             
             String line;
-            bin.nextLine();//remove the commented part
+            boolean commentCheck=true;
+            while(commentCheck!=false){
+                String[] commentRemove=bin.nextLine().split(" ");
+                if(commentRemove[0]!="c"||commentRemove[0]!="C"){
+                    commentCheck=false;
+                }    
+        }
             String[] format=bin.nextLine().split(" ");
             int NumberOfClauses=Integer.parseInt(format[3]);//get the number of clauses
             Formula f = new Formula(); //create and instance of the formula
@@ -84,6 +90,7 @@ public class SATSolverTest {
             }else{
             	System.out.println("Formula Satisfiable");
             	String bindings = env.toString();
+            	System.out.println(bindings);
             	bindings = bindings.substring(bindings.indexOf("[")+1, bindings.indexOf("]"));
             	String[] bindingNew = bindings.split(", ");
             	for (String binding : bindingNew){
@@ -91,7 +98,7 @@ public class SATSolverTest {
             		write.println(bind[0] + ":" + bind[1]);
             	}
             	
-            	System.out.println(bindings);
+            	
             }
             write.close();
             //TO BE REMOVED!!!!! WILL SLOW DOWN THE CODE===========================================
