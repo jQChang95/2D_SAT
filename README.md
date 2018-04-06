@@ -38,6 +38,7 @@ $ java SatSolverTest
 ## Authors
 
 * **Chang Jun Qing**
+* **Christopher Teo**
 
 ## Acknowledgments
 
