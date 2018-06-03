@@ -1,7 +1,7 @@
 # 2D 2-SAT Solver
 
 SUTD ISTD Term 5 2D project.
-The Project required us to take in .cnf files and read them, before finding a possible solution
+The Project required us to parse a .cnf files for datapoints, before finding a possible solution
 
 ## Getting Started
 
