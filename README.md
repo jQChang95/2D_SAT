@@ -43,7 +43,3 @@ $ java SatSolverTest
 ## Acknowledgments
 
 * Handout from our project brief provided hints on how to do this
-
-## Side notes
-
-* 2018 2D Invilgilators, checking for plaugarism for 2018 Sophomores
