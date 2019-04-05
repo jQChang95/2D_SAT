@@ -7,7 +7,7 @@ The Project required us to parse a .cnf files for datapoints, before finding a p
 
 Run the following
 ```
-$ git clone https://github.com/junqingchang/2D_SAT
+$ git clone https://github.com/junqingchang/2-sat-solver
 ```
 
 ### Prerequisites
@@ -22,7 +22,7 @@ You don't need to install anything!
 
 Run the following
 ```
-$ cd 2D_SAT/Project-2D-starting/src/sat
+$ cd 2D-sat-solver/Project-2D-starting/src/sat
 ```
 in SatSolverTest.java, replace ```"Test.cnf"``` with the cnf file you wish to open
 then either run SatSolverTest in and IDE, or run the following in command prompt
